@@ -1,0 +1,31 @@
+---
+version: '1.0.0'
+
+environment:
+  defaultServices:
+    - name: 'demo-env'
+
+services:
+  - name: 'demo-env'
+    defaultUUID: 'good-dev-0'
+    github:
+      repository: 'vmelikyan/demo-env'
+      branchName: 'master'
+      docker:
+        defaultTag: 'master'
+        app:
+          dockerfilePath: 'Dockerfile'
+          ports:
+            - 3000
+      deployment:
+        public: true
+        capacityType: 'SPOT'
+        resource:
+          cpu:
+            request: '10m'
+          memory:
+            request: '100Mi'
+        readiness:
+          tcpSocketPort: 3000
+          httpGet:
+            port: 3000
